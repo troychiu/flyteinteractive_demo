@@ -41,7 +41,6 @@ def get_data() -> (torch.Tensor, torch.Tensor):
 @task(
     requests=Resources(cpu="2000m", mem="2000Mi")
 )
-
 @vscode
 def train_model_and_calculate_loss(x: torch.Tensor, y: torch.Tensor) -> float:
     model = train_model(x, y)
