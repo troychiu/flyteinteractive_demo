@@ -13,7 +13,7 @@ def generate_data():
     return x, y
 
 def train_model(x: torch.Tensor, y: torch.Tensor) -> nn.Module:
-    model = nn.Linear(1, 1)
+    model = nn.Linear(2, 1)
     criterion = nn.MSELoss()
     optimizer = SGD(model.parameters(), lr=0.01)
 
@@ -33,6 +33,9 @@ def calculate_loss(model: nn.Module, x: torch.Tensor, y: torch.Tensor) -> float:
     loss = criterion(y_pred, y)
     return loss.item()
 
+
+
+
 @task
 def get_data() -> (torch.Tensor, torch.Tensor):
     x, y = generate_data()
@@ -41,7 +44,6 @@ def get_data() -> (torch.Tensor, torch.Tensor):
 @task(
     requests=Resources(cpu="2000m", mem="2000Mi")
 )
-@vscode
 def train_model_and_calculate_loss(x: torch.Tensor, y: torch.Tensor) -> float:
     model = train_model(x, y)
     loss = calculate_loss(model, x, y)
